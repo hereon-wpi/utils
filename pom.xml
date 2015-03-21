@@ -15,16 +15,16 @@
     </properties>
 
     <scm>
-        <connection>scm:hg:https://bitbucket.org/hzgwpn/tangoapi</connection>
-        <developerConnection>scm:hg:ssh://hg@bitbucket.org/hzgwpn/tangoapi</developerConnection>
-        <url>ssh://hg@bitbucket.org/hzgwpn/tangoapi</url>
+        <connection>scm:hg:https://bitbucket.org/hzgwpn/utils</connection>
+        <developerConnection>scm:hg:ssh://hg@bitbucket.org/hzgwpn/utils</developerConnection>
+        <url>ssh://hg@bitbucket.org/hzgwpn/utils</url>
         <tag>${version}</tag>
     </scm>
 
     <distributionManagement>
         <repository>
             <id>bintray-hzg</id>
-            <url>https://api.bintray.com/maven/hzgde/hzg-wpn-projects/ezTangORB</url>
+            <url>https://api.bintray.com/maven/hzgde/hzg-wpn-projects/utils</url>
         </repository>
     </distributionManagement>
 
