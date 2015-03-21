@@ -9,11 +9,7 @@ import java.util.Map;
  * @since 25.04.13
  */
 public class TypeConverters {
-    private TypeConverters() {
-    }
-
     private static final Map<Class<?>, StringToTypeConverter<?>> STRING_TO_TYPE_CONVERTERS = Maps.newIdentityHashMap();
-
     static {
         STRING_TO_TYPE_CONVERTERS.put(Double.class, StringToTypeConverter.TO_DOUBLE);
         STRING_TO_TYPE_CONVERTERS.put(double.class, StringToTypeConverter.TO_DOUBLE);
@@ -32,6 +28,9 @@ public class TypeConverters {
         STRING_TO_TYPE_CONVERTERS.put(Boolean.class, StringToTypeConverter.TO_BOOL);
         STRING_TO_TYPE_CONVERTERS.put(boolean.class, StringToTypeConverter.TO_BOOL);
         STRING_TO_TYPE_CONVERTERS.put(String.class, StringToTypeConverter.TO_STRING);
+    }
+
+    private TypeConverters() {
     }
 
     public static <T> hzg.wpn.util.conveter.TypeConverter<String, T> lookupStringToTypeConverter(Class<T> clazz) {

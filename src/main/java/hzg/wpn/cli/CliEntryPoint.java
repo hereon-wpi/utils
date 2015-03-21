@@ -33,7 +33,8 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import org.apache.commons.cli.*;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -43,18 +44,18 @@ import java.util.Arrays;
  * @since 14.05.12
  */
 public class CliEntryPoint<T> {
+    private static final Logger logger = LoggerFactory.getLogger(CliEntryPoint.class);
+
     private final T optionsContainer;
     private final Parser parser;
     private final Options options = new Options();
     private final HelpFormatter help = new HelpFormatter();
-
+    private volatile boolean initialized;
 
     public CliEntryPoint(T optionsContainer, Parser parser) {
         this.optionsContainer = optionsContainer;
         this.parser = parser;
     }
-
-    private volatile boolean initialized;
 
     /**
      * Call this method after instance creation.
@@ -75,12 +76,10 @@ public class CliEntryPoint<T> {
 
     /**
      * Parses the command line arguments using parser.
-     *
-     * @param parser parser
-     * @param logger
+     *  @param parser parser
      * @param args   command line  @throws RuntimeException in case any trouble
      */
-    public void parse(Parser parser, Logger logger, String... args) {
+    public void parse(Parser parser, String... args) {
         Preconditions.checkState(initialized);
         try {
             CommandLine cl = parser.parser.parse(options, args);
@@ -122,7 +121,7 @@ public class CliEntryPoint<T> {
     }
 
     public void parse(Logger logger, String... args) {
-        parse(parser, logger, args);
+        parse(parser, args);
     }
 
     public static enum Parser {
