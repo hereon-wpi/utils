@@ -4,7 +4,7 @@
 
     <groupId>hzg.wpn</groupId>
     <artifactId>utils</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.4</version>
     <description>This project accumulates utilities from different projects so they can be easily reused.</description>
 
     <properties>
@@ -16,7 +16,7 @@
         <connection>scm:hg:https://bitbucket.org/hzgwpn/utils</connection>
         <developerConnection>scm:hg:ssh://hg@bitbucket.org/hzgwpn/utils</developerConnection>
         <url>ssh://hg@bitbucket.org/hzgwpn/utils</url>
-        <tag>${version}</tag>
+        <tag>utils-0.0.4</tag>
     </scm>
 
     <distributionManagement>
