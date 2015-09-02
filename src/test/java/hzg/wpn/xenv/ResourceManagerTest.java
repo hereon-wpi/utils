@@ -16,14 +16,14 @@ public class ResourceManagerTest {
 
     @Test
     public void testLoadResource_fromClassPath() throws Exception {
-        Properties result = ResourceManager.loadResource("loadProperties.properties");
+        Properties result = ResourceManager.loadProperties("loadProperties.properties");
 
         assertEquals("world", result.getProperty("hello"));
     }
 
     @Test
     public void testLoadResource_fromFileSystem() throws Exception {
-        Properties result = ResourceManager.loadResource("src/test", "loadProperties_from_FileSystem.properties");
+        Properties result = ResourceManager.loadProperties("src/test", "loadProperties_from_FileSystem.properties");
 
         assertEquals("kitty!!!", result.getProperty("hello"));
     }

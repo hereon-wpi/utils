@@ -1,7 +1,7 @@
 package hzg.wpn.xenv;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,8 +24,8 @@ public class ResourceManager {
      * @return a new properties loaded from file
      * @throws IOException
      */
-    public static Properties loadResource(String name) throws IOException {
-        return loadResource("", name);
+    public static Properties loadProperties(String name) throws IOException {
+        return loadProperties("", name);
     }
 
     /**
@@ -36,16 +36,18 @@ public class ResourceManager {
      * @return a new properties loaded from file
      * @throws IOException
      */
-    public static Properties loadResource(String prefix, String name) throws IOException {
+    public static Properties loadProperties(String prefix, String name) throws IOException {
         Properties result = new Properties();
+        result.load(loadResource(prefix, name));
+        return result;
+    }
 
+    public static InputStream loadResource(String prefix, String name) throws IOException {
         Path p = Paths.get(XENV_ROOT, prefix, name);
         if (Files.exists(p)) {
-            result.load(Files.newBufferedReader(p, Charset.defaultCharset()));
+            return Files.newInputStream(p);
         } else {
-            result.load(ResourceManager.class.getClassLoader().getResourceAsStream(name));
+            return ResourceManager.class.getClassLoader().getResourceAsStream(name);
         }
-
-        return result;
     }
 }
