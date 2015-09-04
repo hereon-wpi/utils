@@ -19,11 +19,12 @@ public class ResourceManager {
     public static final String XENV_ROOT = System.getenv(PROP_XENV_ROOT) != null ? System.getenv(PROP_XENV_ROOT) :
             System.getProperty(PROP_XENV_ROOT) != null ? System.getProperty(PROP_XENV_ROOT) : "";
 
+
+    private static final Logger logger = LoggerFactory.getLogger(ResourceManager.class);
+
     static {
         logger.debug("XENV_ROOT=" + XENV_ROOT);
     }
-
-    private static final Logger logger = LoggerFactory.getLogger(ResourceManager.class);
 
     /**
      * Loads {@link Properties} from file specified by name either from the file system or classpath
