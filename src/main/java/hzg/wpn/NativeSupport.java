@@ -14,19 +14,25 @@ import java.nio.file.StandardCopyOption;
  * @author Igor Khokhriakov <igor.khokhriakov@hzg.de>
  * @since 7/4/16
  */
-public class Native {
-    public static void extractAndLoadLibrary(String libraryName){
-        Unsafe unsafe = UnsafeSupport.UNSAFE;
-        int addressSize = unsafe.addressSize();
+public class NativeSupport {
+    private static final Unsafe UNSAFE = UnsafeSupport.UNSAFE;
+
+    static {
+        int addressSize = UNSAFE.addressSize();
         if (addressSize != 8)
             throw new Error("Invalid address size [= " + addressSize + " Byte]! Address size must be equal to 8 Byte (64 bits). Probably using unsupported JVM... try x64 JVM");
 
         String os_name = System.getProperty("os.name");
 
         if (!"linux".equalsIgnoreCase(os_name)) throw new Error("Currently only linux is supported!");
+    }
 
-        extractLibrary(libraryName);
-
+    /**
+     * Loads library into Java's classpath
+     *
+     * @param libraryName the library
+     */
+    public static void loadLibrary(String libraryName){
         System.setProperty("java.library.path", Paths.get("./lib/native/x86_64-linux-gnu").toAbsolutePath().toString());
 
         resetClassLoader();
@@ -42,7 +48,7 @@ public class Native {
      * @param libraryName the library
      */
     public static void extractLibrary(String libraryName) {
-        InputStream lib = Native.class.getResourceAsStream("/lib/native/x86_64-linux-gnu/lib"+libraryName+".so");
+        InputStream lib = NativeSupport.class.getResourceAsStream("/lib/native/x86_64-linux-gnu/lib"+libraryName+".so");
 
         Path cwd = Paths.get(".");
 
