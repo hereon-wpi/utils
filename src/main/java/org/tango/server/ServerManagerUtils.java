@@ -1,22 +1,16 @@
 package org.tango.server;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import fr.esrf.Tango.DevFailed;
-import org.tango.client.database.DatabaseFactory;
 import org.tango.client.ez.util.TangoUtils;
-import org.tango.server.export.IExporter;
+import org.tango.server.export.TangoExporter;
 import org.tango.server.servant.DeviceImpl;
-import org.tango.utils.DevFailedUtils;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Igor Khokhriakov <igor.khokhriakov@hzg.de>
@@ -37,25 +31,24 @@ public class ServerManagerUtils {
         try {
             Field tangoExporterField = ServerManager.getInstance().getClass().getDeclaredField("tangoExporter");
             tangoExporterField.setAccessible(true);
-            final IExporter tangoExporter = (IExporter) tangoExporterField.get(ServerManager.getInstance());
+            final TangoExporter tangoExporter = (TangoExporter) tangoExporterField.get(ServerManager.getInstance());
 
-            final String[] deviceList = DatabaseFactory.getDatabase().getDeviceList(
-                    clazz.getSimpleName() + "/" + instance, clazz.getSimpleName());
+            final String[] deviceList = tangoExporter.getDevicesOfClass(clazz.getSimpleName());
 
             if (deviceList.length == 0) //No tango devices were found. Simply skip the following
                 return Collections.emptyList();
 
-            return Lists.newArrayList(Iterables.filter(Lists.transform(Arrays.asList(deviceList), new Function<String, T>() {
-                @Override
-                public T apply(String input) {
-                    try {
-                        DeviceImpl deviceImpl = tangoExporter.getDevice(clazz.getSimpleName(), input);
-                        return (T) deviceImpl.getBusinessObject();
-                    } catch (DevFailed devFailed) {
-                        return null;
-                    }
-                }
-            }), Predicates.notNull()));
+            return Arrays.stream(deviceList)
+                    .map(s -> {
+                        try {
+                            DeviceImpl deviceImpl = tangoExporter.getDevice(clazz.getSimpleName(), s);
+                            return (T) deviceImpl.getBusinessObject();
+                        } catch (DevFailed devFailed) {
+                            return null;
+                        }
+                    })
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         } catch (DevFailed devFailed) {
