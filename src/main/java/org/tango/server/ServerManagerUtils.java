@@ -1,5 +1,6 @@
 package org.tango.server;
 
+import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
 import fr.esrf.Tango.DevFailed;
 import org.tango.client.ez.util.TangoUtils;
@@ -23,6 +24,10 @@ public class ServerManagerUtils {
 
     public static void writePidFile(@Nullable Path prefix) throws IOException {
         ServerManager serverManager = ServerManager.getInstance();
+
+        Preconditions.checkState(serverManager.isStarted(), "Server must be started first!");
+
+
         String pid = serverManager.getPid();
 
         Files.write(pid.getBytes(),
