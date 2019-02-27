@@ -1,15 +1,17 @@
 package org.tango.server;
 
+import com.google.common.io.Files;
 import fr.esrf.Tango.DevFailed;
 import org.tango.client.ez.util.TangoUtils;
 import org.tango.server.export.TangoExporter;
 import org.tango.server.servant.DeviceImpl;
 
+import javax.annotation.Nullable;
+import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -18,6 +20,16 @@ import java.util.stream.Collectors;
  */
 public class ServerManagerUtils {
     private ServerManagerUtils(){}
+
+    public static void writePidFile(@Nullable Path prefix) throws IOException {
+        ServerManager serverManager = ServerManager.getInstance();
+        String pid = serverManager.getPid();
+
+        Files.write(pid.getBytes(),
+                Optional.ofNullable(prefix)
+                        .orElse(Paths.get(System.getProperty("user.dir")))
+                        .resolve(Paths.get(serverManager.getExecName() + ".pid")).toFile());
+    }
 
     /**
      *
