@@ -8,6 +8,7 @@ import org.tango.server.export.TangoExporter;
 import org.tango.server.servant.DeviceImpl;
 
 import javax.annotation.Nullable;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
@@ -27,13 +28,16 @@ public class ServerManagerUtils {
 
         Preconditions.checkState(serverManager.isStarted(), "Server must be started first!");
 
-
         String pid = serverManager.getPid();
 
+        File pidFile = Optional.ofNullable(prefix)
+                .orElse(Paths.get(System.getProperty("user.dir")))
+                .resolve(Paths.get(serverManager.getExecName() + ".pid")).toFile();
+
         Files.write(pid.getBytes(),
-                Optional.ofNullable(prefix)
-                        .orElse(Paths.get(System.getProperty("user.dir")))
-                        .resolve(Paths.get(serverManager.getExecName() + ".pid")).toFile());
+                pidFile);
+
+        pidFile.deleteOnExit();
     }
 
     /**
