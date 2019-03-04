@@ -3,7 +3,6 @@ package org.tango.server;
 import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
 import fr.esrf.Tango.DevFailed;
-import org.tango.client.ez.util.TangoUtils;
 import org.tango.server.export.TangoExporter;
 import org.tango.server.servant.DeviceImpl;
 
@@ -70,10 +69,8 @@ public class ServerManagerUtils {
                     })
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException | DevFailed e) {
             throw new RuntimeException(e);
-        } catch (DevFailed devFailed) {
-            throw new RuntimeException(TangoUtils.convertDevFailedToException(devFailed));
         }
     }
 }
