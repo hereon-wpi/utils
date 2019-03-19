@@ -48,11 +48,11 @@ public class ResourceManager {
      */
     public static Properties loadProperties(String prefix, String name) throws IOException {
         Properties result = new Properties();
-        InputStream resource = loadResource(prefix, name);
-
-        result.load(resource);
-        logger.debug("Successfully load properties!");
-        return result;
+        try (InputStream resource = loadResource(prefix, name)) {
+            result.load(resource);
+            logger.debug("Successfully load properties!");
+            return result;
+        }
     }
 
     public static InputStream loadResource(String prefix, String name) throws IOException {
