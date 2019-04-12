@@ -20,7 +20,7 @@ public class ChangeEventPusher<T> implements Runnable {
 
     private final DeviceManager deviceManager;
 
-    private ChangeEventPusher(String attrName, T value, DeviceManager deviceManager) {
+    public ChangeEventPusher(String attrName, T value, DeviceManager deviceManager) {
         this.deviceManager = deviceManager;
         AttributeValue attributeValue;
         try {
