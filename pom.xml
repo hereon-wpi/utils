@@ -4,7 +4,7 @@
 
     <groupId>hzg.wpn</groupId>
     <artifactId>utils</artifactId>
-    <version>17</version>
+    <version>18-SNAPSHOT</version>
     <description>This project accumulates utilities from different projects so they can be easily reused.</description>
 
     <properties>
