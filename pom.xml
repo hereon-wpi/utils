@@ -10,12 +10,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <github.organization>hzg-wpi</github.organization>
+        <github.repo>utils</github.repo>
     </properties>
 
     <scm>
-        <connection>scm:hg:https://bitbucket.org/hzgwpn/utils</connection>
-        <developerConnection>scm:hg:ssh://hg@bitbucket.org/hzgwpn/utils</developerConnection>
-        <url>ssh://hg@bitbucket.org/hzgwpn/utils</url>
+        <connection>scm:git:git@github.com:${github.organization}/${github.repo}.git</connection>
+        <developerConnection>scm:git:git@github.com:${github.organization}/${github.repo}.git</developerConnection>
+        <url>https://github.com/${github.organization}/${github.repo}</url>
         <tag>${version}</tag>
     </scm>
 
