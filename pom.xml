@@ -4,7 +4,7 @@
 
     <groupId>hzg.wpn</groupId>
     <artifactId>utils</artifactId>
-    <version>20</version>
+    <version>21-SNAPSHOT</version>
     <description>This project accumulates utilities from different projects so they can be easily reused.</description>
 
     <properties>
@@ -18,7 +18,7 @@
         <connection>scm:git:git@github.com:${github.organization}/${github.repo}.git</connection>
         <developerConnection>scm:git:git@github.com:${github.organization}/${github.repo}.git</developerConnection>
         <url>https://github.com/${github.organization}/${github.repo}</url>
-        <tag>utils-20</tag>
+        <tag>${version}</tag>
     </scm>
 
     <distributionManagement>
