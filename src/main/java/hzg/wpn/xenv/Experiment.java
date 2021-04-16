@@ -1,8 +1,6 @@
 package hzg.wpn.xenv;
 
 import com.google.common.collect.EvictingQueue;
-import com.google.common.collect.Queues;
-import sun.misc.Queue;
 
 import java.lang.Object;import java.lang.String;
 import java.util.List;
