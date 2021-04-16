@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>hzg.wpn</groupId>
+    <groupId>de.hereon</groupId>
     <artifactId>utils</artifactId>
     <version>22-SNAPSHOT</version>
     <description>This project accumulates utilities from different projects so they can be easily reused.</description>
@@ -23,8 +23,8 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-hzg</id>
-            <url>https://api.bintray.com/maven/hzgde/hzg-wpn-projects/utils/;publish=1</url>
+            <id>github-hzg</id>
+            <url>https://maven.pkg.github.com/hzg-wpi/utils</url>
         </repository>
     </distributionManagement>
 
@@ -73,9 +73,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.tango-controls</groupId>
-            <artifactId>JTangoServer</artifactId>
-            <version>9.5.10-hzg.5</version>
+            <groupId>de.hereon.tango</groupId>
+            <artifactId>server</artifactId>
+            <version>1.0.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -165,4 +165,11 @@
             </build>
         </profile>
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>github-hzg</id>
+            <url>https://maven.pkg.github.com/hzg-wpi/JTango</url>
+        </repository>
+    </repositories>
 </project>
